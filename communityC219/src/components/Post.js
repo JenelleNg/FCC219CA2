@@ -2,25 +2,50 @@ import { Link } from "react-router-dom";
 
 export default function Post({ post, onDelete, busy }) {
   return (
-    <div className="card">
-      {post.pic && <img src={post.pic} alt={post.title} />}
-      <h3>{post.title}</h3>
-      <p>{post.details}</p>
-      <p>ID: {post.id}</p>
-      <p>Type: {post.record_type}</p>
+    <div className="post">
+      {/* Header */}
+      <div className="post__body">
+        <h3 className="post__title">{post.title}</h3>
 
-      <div className="card-actions">
-        <Link to={`/posts/${post.id}/edit`}>Edit</Link>
-        <button
-          disabled={busy}
-          onClick={() => {
-            if (window.confirm("Are you sure you want to delete this post?")) {
-              onDelete(post);
-            }
-          }}
+        <span
+          className={
+            post.record_type === "event"
+              ? "badge badge--event"
+              : "badge badge--post"
+          }
         >
-          Delete
-        </button>
+          {post.record_type}
+        </span>
+      </div>
+
+      {/* Image */}
+      {post.pic && (
+        <div className="post__imgWrap">
+          <img src={post.pic} alt={post.title} className="post__img" />
+        </div>
+      )}
+
+      {/* Body */}
+      <div className="post__body">
+        <p className="muted small">{post.details}</p>
+
+        <div className="actions actions--tight">
+          <Link to={`/posts/${post.id}/edit`} className="btn btn--ghost">
+            Edit
+          </Link>
+
+          <button
+            className="btn btn--danger"
+            disabled={busy}
+            onClick={() => {
+              if (window.confirm("Are you sure you want to delete this post?")) {
+                onDelete(post);
+              }
+            }}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );

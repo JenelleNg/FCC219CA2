@@ -14,7 +14,7 @@ export async function login(credentials) {
 }
 
 export async function getPosts() {
-  const res = await fetch(`${API_URL}/allposts`);
+  const res = await fetch(`${API_URL}/allposts`, { headers: authHeaders() });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
@@ -30,11 +30,14 @@ export function CreatePost(post) {
 export function editPost(id, post) {
   return fetch(`${API_URL}/editpost/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify(post),
   });
 }
 
 export function deletePost(id) {
-  return fetch(`${API_URL}/deletepost/${id}`, { method: "DELETE" });
+  return fetch(`${API_URL}/deletepost/${id}`, {
+    method: "DELETE",
+    headers: authHeaders(),
+  });
 }

@@ -51,7 +51,7 @@ export default function PostList() {
 
   return (
     <main>
-      <div className="card-grid">
+      <div className="post-grid">
         {posts.length === 0 && <p>No posts or events yet.</p>}
         {posts.map(post => (
           <Post
