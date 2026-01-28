@@ -1,42 +1,51 @@
 /* =========================
-   Global styles (index.css)
+   index.css (Global)
    ========================= */
 
 :root {
-  --bg: #fffaf3;
-  --bg2: #f6f8ff;
-  --card: #ffffff;
+  /* Fun family palette */
+  --ink: #223047;            /* main text (always dark) */
+  --muted: #56637a;
 
-  --text: #1f2937;
-  --muted: #6b7280;
+  --bg: #fff7fb;             /* pinky base */
+  --bg2: #f2f7ff;            /* blue tint */
+  --card: rgba(255, 255, 255, 0.92);
 
-  --border: rgba(31, 41, 55, 0.10);
-  --shadow: 0 10px 25px rgba(31, 41, 55, 0.08);
+  --line: rgba(34, 48, 71, 0.10);
+  --shadow: 0 14px 30px rgba(34, 48, 71, 0.10);
 
-  --primary: #5b6cff;
-  --primary2: #ff7a59;
-  --success: #22c55e;
-  --danger: #ef4444;
+  --primary: #6c63ff;        /* purple */
+  --primarySoft: rgba(108, 99, 255, 0.16);
 
-  --radius: 18px;
+  --peach: #ff8fab;          /* pink */
+  --peachSoft: rgba(255, 143, 171, 0.16);
+
+  --mint: #2dd4bf;           /* mint */
+  --mintSoft: rgba(45, 212, 191, 0.16);
+
+  --sun: #ffcc66;            /* yellow */
+  --sunSoft: rgba(255, 204, 102, 0.18);
+
+  --danger: #ff4d6d;
+
+  --radius: 22px;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  color: var(--text);
+  color: var(--ink);
 
+  /* Fun pastel background with “bubbles” */
   background:
-    radial-gradient(900px 500px at 10% 0%, rgba(91, 108, 255, 0.12), transparent 60%),
-    radial-gradient(800px 450px at 90% 10%, rgba(255, 122, 89, 0.10), transparent 60%),
-    var(--bg2);
+    radial-gradient(900px 520px at 12% 8%, rgba(108, 99, 255, 0.18), transparent 60%),
+    radial-gradient(800px 480px at 92% 14%, rgba(255, 143, 171, 0.18), transparent 58%),
+    radial-gradient(780px 520px at 50% 110%, rgba(45, 212, 191, 0.14), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
 }
 
-/* Optional but safe */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
