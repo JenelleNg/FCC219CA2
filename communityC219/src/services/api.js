@@ -19,7 +19,7 @@ export async function getPosts() {
   return res.json();
 }
 
-export function CreatePost(post) {
+export function createPost(post) {
   return fetch(`${API_URL}/createpost`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
