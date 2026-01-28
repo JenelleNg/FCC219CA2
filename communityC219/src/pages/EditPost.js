@@ -16,6 +16,14 @@ export default function EditPost() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
+  // 🔒 Authentication check
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // redirect to login if not authenticated
+    }
+  }, [navigate]);
+
   useEffect(() => {
     async function loadPost() {
       try {
@@ -44,12 +52,21 @@ export default function EditPost() {
     setBusy(true);
     setError("");
 
+    const token = localStorage.getItem("token"); // 🔒 include token in request
+
+    if (!token) {
+      setBusy(false);
+      navigate("/login");
+      return;
+    }
+
     try {
       await editPost(id, {
         record_type: values.record_type,
         title: values.title,
         details: values.details,
-        pic: values.pic || null
+        pic: values.pic || null,
+        token, // send token to API for verification if backend requires it
       });
       navigate("/posts");
     } catch {
@@ -76,85 +93,3 @@ export default function EditPost() {
     </main>
   );
 }
-
-
-// import { useEffect, useState } from "react";
-// import { useNavigate, useParams } from "react-router-dom";
-// import CardForm from "../components/CardForm";
-// import { getCards, updateCard } from "../services/api";
-
-// export default function EditCard() {
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-
-//   const [loading, setLoading] = useState(true);
-//   const [busy, setBusy] = useState(false);
-//   const [error, setError] = useState("");
-//   const [values, setValues] = useState({ card_name: "", card_pic: "" });
-
-//   useEffect(() => {
-//     async function loadCard() {
-//       setLoading(true);
-//       setError("");
-
-//       try {
-//         const cards = await getCards();
-//         const card = cards.find((c) => String(c.id) === String(id));
-
-//         if (!card) {
-//           throw new Error("Card not found");
-//         }
-
-//         setValues({
-//           card_name: card.card_name,
-//           card_pic: card.card_pic,
-//         });
-//       } catch (err) {
-//         console.error(err);
-//         setError("Card not found or failed to load.");
-//       } finally {
-//         setLoading(false);
-//       }
-//     }
-
-//     loadCard();
-//   }, [id]);
-
-//   async function handleSubmit(e) {
-//     e.preventDefault();
-//     setBusy(true);
-//     setError("");
-//     try {
-//       const res = await updateCard(id, values);
-//       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-//       navigate("/cards");
-//     } catch (err) {
-//       console.error(err);
-//       setError("Failed to update card.");
-//     } finally {
-//       setBusy(false);
-//     }
-//   }
-
-//   return (
-//     <section className="page">
-//       <h2 className="page__title">Edit Card</h2>
-
-//       {loading ? (
-//         <div className="muted">Loading…</div>
-//       ) : (
-//         <div className="cardbox">
-//           <CardForm
-//             mode="edit"
-//             values={values}
-//             onChange={setValues}
-//             onSubmit={handleSubmit}
-//             busy={busy}
-//             error={error}
-//             submitText="Save Changes"
-//           />
-//         </div>
-//       )}
-//     </section>
-//   );
-// }
