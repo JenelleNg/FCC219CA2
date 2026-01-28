@@ -75,7 +75,6 @@ export default function EditPost() {
 
     setBusy(false);
   }
-
   if (loading) return <p>Loading post...</p>;
   if (error) return <p>{error}</p>;
 
