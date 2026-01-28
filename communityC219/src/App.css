@@ -1,176 +1,22 @@
-:root {
-  --border: #e5e7eb;
-  --text: #111827;
-  --muted: #6b7280;
-  --bg: #ffffff;
-  --bg2: #f9fafb;
-  --danger: #ef4444;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: system-ui, Arial, sans-serif;
-  color: var(--text);
-  background: var(--bg2);
-}
+/* =========================
+   App UI styles (App.css)
+   ========================= */
 
 /* Layout */
-.container {
+main {
   max-width: 1100px;
   margin: 0 auto;
   padding: 18px;
 }
 
-/* Navbar */
-.navbar {
-  position: sticky;
-  top: 0;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 18px;
+/* Typography */
+h1, h2, h3 {
+  margin: 0 0 10px;
+  line-height: 1.2;
 }
 
-.navbar__brand {
-  font-weight: 800;
-}
-
-.navbar__links {
-  display: flex;
-  gap: 12px;
-}
-
-.navbar__links a {
-  text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 10px;
-  color: var(--text);
-}
-
-.navbar__links a.active {
-  background: #111827;
-  color: white;
-}
-
-/* Page */
-.page {
-  padding: 6px 0;
-}
-
-.page__title {
-  margin: 10px 0 14px;
-}
-
-.page__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 14px;
-  align-items: start;
-}
-
-/* Post (Padlet tile) */
-.post {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  max-width: 320px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Post image */
-.post__imgWrap {
-  width: 100%;
-  height: 150px;
-  background: #f3f4f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.post__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Post body */
-.post__body {
-  padding: 12px;
-}
-
-.post__title {
-  margin: 0 0 6px;
-  font-size: 15px;
-  font-weight: 700;
-}
-
-/* Badge */
-.badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 999px;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-}
-
-.badge--event {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.badge--post {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-/* Forms */
-.form {
-  display: grid;
-  gap: 12px;
-}
-
-.field {
-  display: grid;
-  gap: 6px;
-}
-
-.label {
-  font-size: 12px;
-  color: #374151;
-}
-
-.input {
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  outline: none;
-  background: white;
-}
-
-/* Text helpers */
-.hint {
-  margin: 0;
-  font-size: 12px;
-  color: var(--muted);
+p {
+  margin: 6px 0;
 }
 
 .muted {
@@ -181,7 +27,120 @@ body {
   font-size: 12px;
 }
 
-/* Actions */
+/* =========================
+   Navbar
+   ========================= */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+}
+
+.navbar__brand {
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar__brand::before {
+  content: "●";
+  color: var(--primary2);
+  font-size: 14px;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.navbar__links a {
+  text-decoration: none;
+  padding: 9px 12px;
+  border-radius: 999px;
+  color: var(--text);
+  border: 1px solid transparent;
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+.navbar__links a:hover {
+  background: rgba(91, 108, 255, 0.10);
+  border-color: rgba(91, 108, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.navbar__links a.active {
+  background: rgba(91, 108, 255, 0.16);
+  border-color: rgba(91, 108, 255, 0.30);
+}
+
+/* Logout button */
+.navbar__links button {
+  border: 1px solid rgba(31, 41, 55, 0.14);
+  background: white;
+  color: var(--text);
+  padding: 9px 12px;
+  border-radius: 999px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.navbar__links button:hover {
+  background: rgba(255, 122, 89, 0.10);
+  border-color: rgba(255, 122, 89, 0.25);
+}
+
+/* =========================
+   Pages / Cards
+   ========================= */
+
+.page {
+  padding: 6px 0;
+}
+
+.page__title {
+  margin: 10px 0 14px;
+}
+
+.cardbox {
+  margin-top: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 12px 24px rgba(31, 41, 55, 0.06);
+}
+
+.list {
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.tip {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 122, 89, 0.10);
+  border: 1px solid rgba(255, 122, 89, 0.22);
+}
+
+/* =========================
+   Buttons
+   ========================= */
+
 .actions {
   display: flex;
   gap: 10px;
@@ -189,13 +148,14 @@ body {
   margin-top: 10px;
 }
 
-/* Buttons */
+.actions.actions--tight {
+  margin-top: 12px;
+}
+
 .btn {
-  border: 1px solid transparent;
-  border-radius: 10px;
-  padding: 10px 12px;
-  cursor: pointer;
-  font-weight: 700;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 800;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -203,14 +163,18 @@ body {
 }
 
 .btn--primary {
-  background: #111827;
+  background: var(--primary);
+  color: white;
+}
+
+.btn--secondary {
+  background: var(--primary2);
   color: white;
 }
 
 .btn--ghost {
   background: white;
-  border-color: #d1d5db;
-  color: #111827;
+  border: 1px solid rgba(31, 41, 55, 0.14);
 }
 
 .btn--danger {
@@ -218,26 +182,135 @@ body {
   color: white;
 }
 
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+/* =========================
+   Posts
+   ========================= */
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
 }
 
-/* Alerts */
-.alert {
-  padding: 10px 12px;
-  border-radius: 12px;
+.post {
+  background: var(--card);
   border: 1px solid var(--border);
-  margin: 10px 0;
+  border-radius: var(--radius);
+  overflow: hidden;
 }
 
-.alert--error {
-  border-color: #fecaca;
-  background: #fef2f2;
-  color: #b91c1c;
+.post__imgWrap {
+  height: 160px;
+  background: linear-gradient(
+    135deg,
+    rgba(91, 108, 255, 0.12),
+    rgba(255, 122, 89, 0.10)
+  );
 }
 
-/* Lists */
-.list {
-  margin: 6px 0 0;
+.post__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
+.post__body {
+  padding: 14px;
+}
+
+.post__title {
+  font-weight: 900;
+  font-size: 16px;
+}
+
+/* Badges */
+.badge {
+  font-size: 11px;
+  font-weight: 900;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.badge--event {
+  background: rgba(34, 197, 94, 0.16);
+}
+
+.badge--post {
+  background: rgba(91, 108, 255, 0.14);
+}
+
+/* =========================
+   Forms
+   ========================= */
+
+.form {
+  display: grid;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.80);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.input {
+  padding: 11px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(31, 41, 55, 0.14);
+}
+
+/* =========================
+   Alerts
+   ========================= */
+
+.error {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  padding: 12px;
+  border-radius: 14px;
+}
+
+/* =========================
+   Empty State
+   ========================= */
+
+.empty {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px dashed rgba(31, 41, 55, 0.18);
+  border-radius: var(--radius);
+  padding: 22px;
+  text-align: center;
+}
+
+.empty__icon {
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 10px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  font-size: 34px;
+  background: linear-gradient(
+    135deg,
+    rgba(91, 108, 255, 0.18),
+    rgba(255, 122, 89, 0.16)
+  );
+}
+
+.empty__title {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.empty__text {
+  color: var(--muted);
+}
+
