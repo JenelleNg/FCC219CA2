@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PostForm from "../components/PostForm";
-import { CreatePost } from "../services/api";
+import { createPost } from "../services/api";
 
-export default function CreatePostPage() {
+export default function CreatePost() {
   const navigate = useNavigate();
   const [values, setValues] = useState({ record_type: "", title: "", details: "", pic: "" });
   const [busy, setBusy] = useState(false);
@@ -24,7 +24,7 @@ export default function CreatePostPage() {
 
     try {
       const username = "admin"; // fixed demo user
-      const res = await CreatePost({ ...values, username });
+      const res = await createPost({ ...values, username });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       navigate("/posts"); // redirect to posts
     } catch (err) {
