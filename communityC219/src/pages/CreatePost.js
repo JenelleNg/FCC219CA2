@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PostForm from "../components/PostForm";
 import { CreatePost } from "../services/api";
 
-export default function CreatePostPage() {
+export default function CreatePost() {
   const navigate = useNavigate();
   const [values, setValues] = useState({ record_type: "", title: "", details: "", pic: "" });
   const [busy, setBusy] = useState(false);
