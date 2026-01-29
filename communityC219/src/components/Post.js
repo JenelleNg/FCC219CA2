@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 export default function Post({ post, onDelete, onLike, busy }) {
   return (
     <div className="post">
-      <div className="post__body">
+      {/* Header: Title + Record Type Badge */}
+      <div className="post__header">
         <h3 className="post__title">{post.title}</h3>
 
         <span
@@ -13,16 +14,18 @@ export default function Post({ post, onDelete, onLike, busy }) {
               : "badge badge--post"
           }
         >
-          {post.record_type}
+          {post.record_type.toUpperCase()}
         </span>
       </div>
 
+      {/* Image */}
       {post.pic && (
         <div className="post__imgWrap">
           <img src={post.pic} alt={post.title} className="post__img" />
         </div>
       )}
 
+      {/* Body */}
       <div className="post__body">
         <p className="muted small">{post.details}</p>
 
@@ -55,3 +58,4 @@ export default function Post({ post, onDelete, onLike, busy }) {
     </div>
   );
 }
+

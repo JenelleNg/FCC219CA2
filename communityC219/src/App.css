@@ -272,6 +272,12 @@ p { margin: 6px 0; }
 .post__body {
   padding: 14px;
 }
+.post__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 
 .post__title {
   margin: 0 0 8px;
