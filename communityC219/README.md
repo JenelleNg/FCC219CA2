@@ -1,27 +1,63 @@
-# C219 Week 10 Card App (Student Starter Repo)
+Documentation that includes: 
+• Work distribution among team members 
+Jing Xi - Frontend: Styling, Search bar. Post and form.
+Jenelle - Backend: setting up the server, creating routes, handling database connections, authentication, and API integration. Create, edit and login pages.
 
-This is a starter codebase: Frontend–Backend Integration with React Router + CRUD.
 
-You will complete the TODOs to build a Card Management App that talks to your deployed Express API.
+• Ideation details: the problem identified, target users, and explanation of how the proposed solution addresses the problem
+Problem Identified: 
+Young people and families often lack a centralized platform to share advice, post events, and communicate effectively with other families. Existing solutions are either fragmented or not user-friendly.
 
----
+Target Users:
+- Families looking to exchange tips and advice.
+- Community organizers posting family-friendly events.
+- Users seeking a social platform focused on family engagement.
 
-## Routes (Required)
+Proposed Solution:
+Our web application provides a community platform where users can create, view posts or events. This include images, titles and detailed descriptions. Users can like, edit and delete posts.
 
-- `/` Home
-- `/cards` View all cards
-- `/cards/new` Add a new card
-- `/cards/:id/edit` Edit a card
+How It Addresses the Problem:
+- Centralizes communication and knowledge sharing among families.
+- Provides an easy-to-use interface for creating and browsing content.
+- Supports multimedia (image URLs) to make posts more engaging.
 
-## Backend API Contract (Required)
 
-- `GET    /allcards`
-- `POST   /addcard`
-- `PUT    /updatecard/:id`
-- `DELETE /deletecard/:id`
+• Backend web service details (routes, endpoints, purpose, etc) 
+Database: communityC219 table with columns
+id(INT, pk), record_type(VARCHAR), username(VARCHAR), title(VARCHAR), details(VARCHAR), pic(VARCHAR), likes(INT)
 
-Expected card JSON shape:
+Routes and endpoints:
+/login - POST - Authenticates a user and returns a JWT token.
+/allposts - GET - Retrieves all posts from the database. Requires JWT.
+/createpost - POST - Creates a new post with optional image. Requires JWT.
+/editpost/:id - PUT - Updates an existing post by ID.
+/deletepost/:id - DELETE - Deletes a post by ID.
 
-```json
-{ "id": 1, "card_name": "Pikachu", "card_pic": "https://..." }
-```
+Authentication:
+- JWT-based authentication for protected routes (/createpost).
+- Tokens stored in local storage on the frontend.
+
+
+• Frontend React application description (features, workflow, navigation, etc) 
+Features:
+- Login authentication using JWT.
+- Create, view, edit, and delete posts.
+- Include optional image URLs in posts.
+- Like system for posts.
+- Responsive design with cards/grid layout.
+
+Workflow & Navigation:
+Login Page: Users enter credentials; receive JWT on success.
+Posts Page: Displays all posts/events in a grid layout with images, titles, and author.
+Create Post Page: Form to create a new post; includes Record Type, Title, Details, and optional Image URL.
+Edit Post Page: Pre-filled form to edit an existing post.
+Post Actions: Users can like, edit, or delete posts directly from the posts page.
+
+
+• The live URL where your app is hosted 
+
+
+
+• Your team’s GitHub repository link
+https://github.com/JenelleNg/C219CA2
+https://github.com/JenelleNg/C219CA2ws
