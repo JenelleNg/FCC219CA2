@@ -55,7 +55,7 @@ Post Actions: Users can like, edit, or delete posts directly from the posts page
 
 
 • The live URL where your app is hosted 
-
+I cant deploy it 
 
 
 • Your team’s GitHub repository link
