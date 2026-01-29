@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 
 export default function Post({ post, onDelete, onLike, busy }) {
   return (
-    <div className="post">
-      {/* Header: Title + Record Type Badge */}
+    <div className={post.pic ? "post has-image" : "post no-image"}>
+
+      {/* Header */}
       <div className="post__header">
         <h3 className="post__title">{post.title}</h3>
 
@@ -21,15 +22,20 @@ export default function Post({ post, onDelete, onLike, busy }) {
       {/* Image */}
       {post.pic && (
         <div className="post__imgWrap">
-          <img src={post.pic} alt={post.title} className="post__img" />
+          <img
+            src={post.pic}
+            alt={post.title}
+            className="post__img"
+          />
         </div>
       )}
+
 
       {/* Body */}
       <div className="post__body">
         <p className="muted small">{post.details}</p>
 
-        <div className="actions actions--tight">
+        <div className="actions">
           <button
             className="btn btn--ghost"
             disabled={busy}
@@ -55,7 +61,7 @@ export default function Post({ post, onDelete, onLike, busy }) {
           </button>
         </div>
       </div>
+
     </div>
   );
 }
-

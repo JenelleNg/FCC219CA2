@@ -7,6 +7,7 @@ export default function Home() {
       <p className="muted">
         Share updates, events, and special moments with your family and community.
         Create posts, announce events, and stay connected all in one place.
+        You can even post tips for families.
       </p>
 
       <div className="cardbox">
