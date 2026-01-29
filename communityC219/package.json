@@ -2,7 +2,7 @@
   "name": "card-app-starter",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://communitywebsitec219ca2.vercel.app",
+  "homepage": "",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
