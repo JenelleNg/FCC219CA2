@@ -1,31 +1,27 @@
 import { useEffect, useState } from "react";
 import Post from "../components/Post";
-import { getPosts, deletePost } from "../services/api";
+import { getPosts, deletePost, editPost } from "../services/api";
 
 export default function PostList() {
   const [posts, setPosts] = useState([]);
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     async function fetchPosts() {
-      setLoading(true);
-      setError("");
-
       try {
         const data = await getPosts();
-        // Optional: sort events first, then by newest
-        data.sort((a, b) => {
-          if (a.record_type === "event" && b.record_type !== "event") return -1;
-          if (a.record_type !== "event" && b.record_type === "event") return 1;
-          return b.id - a.id; // newest first
-        });
-        setPosts(data);
+        setPosts(
+          data.map(p => ({
+            ...p,
+            likes: p.likes || 0
+          }))
+        );
       } catch {
         setError("Failed to load posts");
       }
-
       setLoading(false);
     }
 
@@ -34,30 +30,43 @@ export default function PostList() {
 
   async function handleDelete(post) {
     setBusy(true);
-    setError("");
-
-    try {
-      await deletePost(post.id);
-      setPosts(posts.filter(c => c.id !== post.id));
-    } catch {
-      setError("Failed to delete post");
-    }
-
+    await deletePost(post.id);
+    setPosts(posts.filter(p => p.id !== post.id));
     setBusy(false);
   }
 
+  async function handleLike(post) {
+    const updated = { ...post, likes: post.likes + 1 };
+    await editPost(post.id, updated);
+    setPosts(posts.map(p => (p.id === post.id ? updated : p)));
+  }
+
+  const filteredPosts = posts.filter(p =>
+    p.title.toLowerCase().includes(search.toLowerCase()) ||
+    p.details.toLowerCase().includes(search.toLowerCase())
+  );
+
   if (loading) return <p>Loading posts...</p>;
-  if (error) return <p className="error">{error}</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <main>
+      <input
+        className="input"
+        placeholder="Search posts..."
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        style={{ marginBottom: "16px" }}
+      />
+
       <div className="post-grid">
-        {posts.length === 0 && <p>No posts or events yet.</p>}
-        {posts.map(post => (
+        {filteredPosts.length === 0 && <p>No posts found.</p>}
+        {filteredPosts.map(post => (
           <Post
             key={post.id}
             post={post}
             onDelete={handleDelete}
+            onLike={handleLike}
             busy={busy}
           />
         ))}
@@ -65,6 +74,7 @@ export default function PostList() {
     </main>
   );
 }
+
 
 // import { useEffect, useState } from "react";
 // import Card from "../components/Card";

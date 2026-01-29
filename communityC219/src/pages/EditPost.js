@@ -10,57 +10,24 @@ export default function EditPost() {
     record_type: "",
     title: "",
     details: "",
-    pic: ""
+    pic: "",
+    likes: 0
   });
-  const [loading, setLoading] = useState(true);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadPost() {
-      try {
-        const posts = await getPosts();
-        const post = posts.find(c => c.id === Number(id));
-        if (!post) {
-          setError("Post not found");
-        } else {
-          setValues({
-            record_type: post.record_type || "",
-            title: post.title || "",
-            details: post.details || "",
-            pic: post.pic || ""
-          });
-        }
-      } catch {
-        setError("Failed to load post");
-      }
-      setLoading(false);
+      const posts = await getPosts();
+      const post = posts.find(p => p.id === Number(id));
+      if (post) setValues(post);
     }
     loadPost();
   }, [id]);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setBusy(true);
-    setError("");
-
-    try {
-      await editPost(id, {
-        record_type: values.record_type,
-        title: values.title,
-        details: values.details,
-        pic: values.pic || null
-      });
-      navigate("/posts");
-    } catch {
-      setError("Failed to update post");
-    }
-
-    setBusy(false);
+    await editPost(id, values);
+    navigate("/posts");
   }
-
-  if (loading) return <p>Loading post...</p>;
-  if (error) return <p>{error}</p>;
 
   return (
     <main>
@@ -69,8 +36,6 @@ export default function EditPost() {
         values={values}
         onChange={e => setValues({ ...values, [e.target.name]: e.target.value })}
         onSubmit={handleSubmit}
-        busy={busy}
-        error={error}
         submitText="Update Post"
       />
     </main>
