@@ -29,22 +29,15 @@ export default function CreatePost({ setPosts }) {
 
     try {
       const username = "admin";
-
-      // Trim pic URL to avoid hidden spaces
       const cleanedValues = { ...values, username, pic: values.pic.trim() };
-
-      // Create post
       const newPost = await createPost(cleanedValues);
 
-      // Update parent state so the post shows immediately
       if (setPosts) {
         setPosts(prev => [newPost, ...prev]);
       }
-
-      // Reset form for next post
       setValues({ record_type: "", title: "", details: "", pic: "" });
 
-      navigate("/posts"); // optional, redirect to posts page
+      navigate("/posts");
     } catch (err) {
       console.error(err);
       setError("Failed to add post");

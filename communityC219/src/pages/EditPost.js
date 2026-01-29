@@ -16,13 +16,11 @@ export default function EditPost({ setPosts }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  // 🔒 Redirect if not authenticated
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) navigate("/login");
   }, [navigate]);
 
-  // Load post data
   useEffect(() => {
     async function loadPost() {
       try {
@@ -37,20 +35,15 @@ export default function EditPost({ setPosts }) {
     loadPost();
   }, [id]);
 
-  // Handle form submission
   async function handleSubmit(e) {
     e.preventDefault();
     setBusy(true);
     setError("");
 
     try {
-      // Trim the pic URL to avoid broken images
       const cleanedValues = { ...values, pic: values.pic.trim() };
-
-      // Save changes
       const updatedPost = await editPost(id, cleanedValues);
 
-      // Immediately update posts in parent state so the picture shows
       if (setPosts) {
         setPosts(prevPosts =>
           prevPosts.map(p => (p.id === id ? updatedPost : p))

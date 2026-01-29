@@ -1,11 +1,4 @@
-export default function PostForm({
-  values,
-  onChange,
-  onSubmit,
-  busy,
-  error,
-  submitText
-}) {
+export default function PostForm({ values, onChange, onSubmit, busy, error, submitText}) {
   return (
     <form onSubmit={onSubmit} className="form">
       <div className="field">
@@ -52,7 +45,7 @@ export default function PostForm({
           value={values.details}
           onChange={onChange}
           required
-          rows={6}  // make textarea bigger for easier reading
+          rows={6}
         />
       </div>
 

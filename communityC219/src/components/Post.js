@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 export default function Post({ post, onDelete, onLike, busy }) {
   return (
     <div className={post.pic ? "post has-image" : "post no-image"}>
-
       <div className="post__header">
         <div>
           <h3 className="post__title">{post.title}</h3>
@@ -20,8 +19,6 @@ export default function Post({ post, onDelete, onLike, busy }) {
           {post.record_type.toUpperCase()}
         </span>
       </div>
-
-      {/* Image */}
       {post.pic && (
         <div>
           <img
@@ -31,9 +28,6 @@ export default function Post({ post, onDelete, onLike, busy }) {
           />
         </div>
       )}
-
-
-      {/* Body */}
       <div className="post__body">
         <p className="muted small">{post.details}</p>
 
