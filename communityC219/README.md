@@ -1,7 +1,7 @@
 Documentation that includes: 
 • Work distribution among team members 
-Jing Xi - 
-Jenelle - 
+Jing Xi - Frontend: Styling, Search bar. Post and form.
+Jenelle - Backend: setting up the server, creating routes, handling database connections, authentication, and API integration. Create, edit and login pages.
 
 
 • Ideation details: the problem identified, target users, and explanation of how the proposed solution addresses the problem
@@ -59,4 +59,5 @@ Post Actions: Users can like, edit, or delete posts directly from the posts page
 
 
 • Your team’s GitHub repository link
-
+https://github.com/JenelleNg/C219CA2
+https://github.com/JenelleNg/C219CA2ws
