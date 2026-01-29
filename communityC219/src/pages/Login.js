@@ -17,11 +17,17 @@ export default function Login() {
     try {
       const res = await login({ username, password });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
       const data = await res.json();
+
+      // ✅ STORE AUTH DATA
       localStorage.setItem("token", data.token);
+      localStorage.setItem("username", username); // 👈 IMPORTANT FOR PER-USER LIKES
+
       navigate("/posts");
     } catch (e) {
       console.error("Login failed", e);
+      setError("Invalid username or password");
     } finally {
       setBusy(false);
     }
@@ -39,6 +45,7 @@ export default function Login() {
               className="input"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </div>
 
@@ -49,10 +56,11 @@ export default function Login() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
-          {error && <div className="alert--error">{error}</div>}
+          {error && <div className="alert alert--error">{error}</div>}
 
           <div className="actions">
             <button className="btn btn--primary" disabled={busy} type="submit">

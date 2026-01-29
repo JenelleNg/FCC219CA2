@@ -1,6 +1,6 @@
 Documentation that includes: 
 • Work distribution among team members 
-Jing Xi - Frontend: Styling, Search bar. Post and form.
+Jing Xi - Frontend: Styling, Search bar, Likes . Post and form.
 Jenelle - Backend: setting up the server, creating routes, handling database connections, authentication, and API integration. Create, edit and login pages.
 
 
