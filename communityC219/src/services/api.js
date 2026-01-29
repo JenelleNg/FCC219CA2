@@ -6,25 +6,29 @@ function authHeaders() {
 }
 
 export async function login(credentials) {
-  return fetch(`${API_URL}/login`, {
+  const res = await fetch(`${API_URL}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
   });
+  if (!res.ok) throw new Error("Login failed");
+  return res.json();
 }
 
 export async function getPosts() {
-  const res = await fetch(`${API_URL}/allposts`, { headers: authHeaders() });
+  const res = await fetch(`${API_URL}/allposts`);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
 
-export function createPost(post) {
-  return fetch(`${API_URL}/createpost`, {
+export async function createPost(post) {
+  const res = await fetch(`${API_URL}/createpost`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify(post),
   });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }
 
 export async function editPost(id, post) {
@@ -33,15 +37,15 @@ export async function editPost(id, post) {
     headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify(post),
   });
-
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
 
-
-export function deletePost(id) {
-  return fetch(`${API_URL}/deletepost/${id}`, {
+export async function deletePost(id) {
+  const res = await fetch(`${API_URL}/deletepost/${id}`, {
     method: "DELETE",
     headers: authHeaders(),
   });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }
