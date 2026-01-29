@@ -29,18 +29,38 @@ export default function Login() {
 
   return (
     <main>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input value={username} onChange={(e) => setUsername(e.target.value)} />
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-        />
-        <button disabled={busy} type="submit">
-          {busy ? "Logging in..." : "Login"}
-        </button>
-      </form>
+      <div className="page">
+        <h2 className="page__title">Login</h2>
+
+        <form className="form cardbox" onSubmit={handleSubmit}>
+          <div className="field">
+            <label className="label">Username</label>
+            <input
+              className="input"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+
+          <div className="field">
+            <label className="label">Password</label>
+            <input
+              className="input"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          {error && <div className="alert--error">{error}</div>}
+
+          <div className="actions">
+            <button className="btn btn--primary" disabled={busy} type="submit">
+              {busy ? "Logging in..." : "Login"}
+            </button>
+          </div>
+        </form>
+      </div>
     </main>
   );
 }

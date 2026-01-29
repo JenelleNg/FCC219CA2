@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import PostForm from "../components/PostForm";
 import { editPost, getPosts } from "../services/api";
 
-export default function EditPost() {
+export default function EditPost({ setPosts }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -13,37 +13,68 @@ export default function EditPost() {
     pic: "",
     likes: 0
   });
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
 
-  // 🔒 Authentication check
+  // 🔒 Redirect if not authenticated
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login"); // redirect to login if not authenticated
-    }
+    if (!token) navigate("/login");
   }, [navigate]);
 
+  // Load post data
   useEffect(() => {
     async function loadPost() {
-      const posts = await getPosts();
-      const post = posts.find(p => p.id === Number(id));
-      if (post) setValues(post);
+      try {
+        const posts = await getPosts();
+        const post = posts.find(p => p.id === Number(id));
+        if (post) setValues(post);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load post");
+      }
     }
     loadPost();
   }, [id]);
 
+  // Handle form submission
   async function handleSubmit(e) {
     e.preventDefault();
-    await editPost(id, values);
-    navigate("/posts");
+    setBusy(true);
+    setError("");
+
+    try {
+      // Trim the pic URL to avoid broken images
+      const cleanedValues = { ...values, pic: values.pic.trim() };
+
+      // Save changes
+      const updatedPost = await editPost(id, cleanedValues);
+
+      // Immediately update posts in parent state so the picture shows
+      if (setPosts) {
+        setPosts(prevPosts =>
+          prevPosts.map(p => (p.id === id ? updatedPost : p))
+        );
+      }
+
+      navigate("/posts");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to update post");
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
-    <main>
-      <h2>Edit Post</h2>
+    <main style={{ maxWidth: "420px", margin: "0 auto", padding: "18px" }}>
+      <h2 style={{ marginBottom: "18px" }}>Edit Post</h2>
       <PostForm
         values={values}
         onChange={e => setValues({ ...values, [e.target.name]: e.target.value })}
         onSubmit={handleSubmit}
+        busy={busy}
+        error={error}
         submitText="Update Post"
       />
     </main>

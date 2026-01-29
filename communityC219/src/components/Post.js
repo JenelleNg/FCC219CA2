@@ -4,9 +4,11 @@ export default function Post({ post, onDelete, onLike, busy }) {
   return (
     <div className={post.pic ? "post has-image" : "post no-image"}>
 
-      {/* Header */}
       <div className="post__header">
-        <h3 className="post__title">{post.title}</h3>
+        <div>
+          <h3 className="post__title">{post.title}</h3>
+          <p>by {post.username}</p>
+        </div>
 
         <span
           className={
@@ -21,7 +23,7 @@ export default function Post({ post, onDelete, onLike, busy }) {
 
       {/* Image */}
       {post.pic && (
-        <div className="post__imgWrap">
+        <div>
           <img
             src={post.pic}
             alt={post.title}

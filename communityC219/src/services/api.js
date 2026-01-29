@@ -27,13 +27,17 @@ export function createPost(post) {
   });
 }
 
-export function editPost(id, post) {
-  return fetch(`${API_URL}/editpost/${id}`, {
+export async function editPost(id, post) {
+  const res = await fetch(`${API_URL}/editpost/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify(post),
   });
+
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }
+
 
 export function deletePost(id) {
   return fetch(`${API_URL}/deletepost/${id}`, {

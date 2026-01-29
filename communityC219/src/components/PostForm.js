@@ -47,11 +47,12 @@ export default function PostForm({
       <div className="field">
         <label className="label">Details</label>
         <textarea
-          className="input"
+          className="input textarea"
           name="details"
           value={values.details}
           onChange={onChange}
           required
+          rows={6}  // make textarea bigger for easier reading
         />
       </div>
 
