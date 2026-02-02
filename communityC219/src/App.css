@@ -286,7 +286,7 @@ p { margin: 6px 0; }
 
 .input {
   width: 100%;
-  padding: 20px 1px;
+  padding: 16px 18px;
   font-size: 16px;
 
   border-radius: 22px;
@@ -404,4 +404,7 @@ p { margin: 6px 0; }
   line-height: 1.5;
   min-height: 150px;
   resize: vertical;
+}
+select.input {
+  padding: 16px 18px;
 }

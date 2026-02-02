@@ -35,29 +35,40 @@ export default function EditPost({ setPosts }) {
     loadPost();
   }, [id]);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setBusy(true);
-    setError("");
+async function handleSubmit(e) {
+  e.preventDefault();
+  setBusy(true);
+  setError("");
 
-    try {
-      const cleanedValues = { ...values, pic: values.pic.trim() };
-      const updatedPost = await editPost(id, cleanedValues);
+  try {
+    let cleanedPic = "";
 
-      if (setPosts) {
-        setPosts(prevPosts =>
-          prevPosts.map(p => (p.id === id ? updatedPost : p))
-        );
-      }
-
-      navigate("/posts");
-    } catch (err) {
-      console.error(err);
-      setError("Failed to update post");
-    } finally {
-      setBusy(false);
+    if (values.pic) {
+      cleanedPic = values.pic.trim();
     }
+
+    const cleanedValues = {
+      ...values,
+      pic: cleanedPic
+    };
+
+    const updatedPost = await editPost(id, cleanedValues);
+
+    if (setPosts) {
+      setPosts(prevPosts =>
+        prevPosts.map(p => (p.id === Number(id) ? updatedPost : p))
+      );
+    }
+
+    navigate("/posts");
+  } catch (err) {
+    console.error(err);
+    setError("Failed to update post");
+  } finally {
+    setBusy(false);
   }
+}
+
 
   return (
     <main style={{ maxWidth: "420px", margin: "0 auto", padding: "18px" }}>

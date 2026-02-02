@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Post({ post, onDelete, onLike, busy, isLiked }) {
+export default function Post({ post, onDelete, onToggleLike, busy, isLiked }) {
   return (
     <div className={post.pic ? "post has-image" : "post no-image"}>
       <div className="post__header">
@@ -32,11 +32,11 @@ export default function Post({ post, onDelete, onLike, busy, isLiked }) {
         <div className="actions">
           <button
             className="btn btn--ghost"
-            disabled={busy || isLiked}
-            onClick={() => onLike(post)}
-            title={isLiked ? "You can only like once" : "Like"}
+            disabled={busy}
+            onClick={() => onToggleLike(post)}
+            title={isLiked ? "Unlike" : "Like"}
           >
-            {isLiked ? "✅ Liked" : "❤️"} {post.likes || 0}
+            {isLiked ? "💔" : "❤️"} {post.likes || 0}
           </button>
 
           <Link to={`/posts/${post.id}/edit`} className="btn btn--ghost">
@@ -59,4 +59,3 @@ export default function Post({ post, onDelete, onLike, busy, isLiked }) {
     </div>
   );
 }
-

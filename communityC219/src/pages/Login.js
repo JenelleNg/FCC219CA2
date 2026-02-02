@@ -10,28 +10,21 @@ export default function Login() {
   const [error, setError] = useState("");
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    setBusy(true);
-    setError("");
-
-    try {
-      const res = await login({ username, password });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-      const data = await res.json();
-
-      // ✅ STORE AUTH DATA
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("username", username); // 👈 IMPORTANT FOR PER-USER LIKES
-
-      navigate("/posts");
-    } catch (e) {
-      console.error("Login failed", e);
-      setError("Invalid username or password");
-    } finally {
-      setBusy(false);
-    }
+  e.preventDefault();
+  setBusy(true);
+  setError("");
+  try {
+    const data = await login({ username, password });
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("username", username);
+    navigate("/posts");
+  } catch (e) {
+    console.error("Login failed", e);
+    setError(e.message);
+  } finally {
+    setBusy(false);
   }
+}
 
   return (
     <main>
